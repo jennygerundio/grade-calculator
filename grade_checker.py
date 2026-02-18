@@ -1,36 +1,62 @@
-# Grade Calculator Program
+# Grade Calculator Program with Enhanced Validation
 
-# Ask user for their test score
-score = float(input("Enter your test score (0-100): "))
+def get_valid_score():
+    """Get and validate user input for test score"""
+    while True:
+        try:
+            score = float(input("Enter your test score (0-100): "))
+            if score < 0 or score > 100:
+                print("❌ Invalid score! Please enter a score between 0 and 100.")
+                continue
+            return score
+        except ValueError:
+            print("❌ Invalid input! Please enter a valid number.")
 
-# Validate input
-if score < 0 or score > 100:
-    print("Invalid score! Please enter a score between 0 and 100.")
-else:
-    # Determine letter grade using if-else statements
+def get_letter_grade(score):
+    """Determine letter grade based on score"""
     if score >= 90:
-        grade = "A"
+        return "A"
     elif score >= 80:
-        grade = "B"
+        return "B"
     elif score >= 70:
-        grade = "C"
+        return "C"
     elif score >= 60:
-        grade = "D"
+        return "D"
     else:
-        grade = "F"
+        return "F"
+
+def get_feedback(grade):
+    """Get feedback message based on grade"""
+    feedback = {
+        "A": "Excellent work! Keep it up!",
+        "B": "Great job! You're doing well.",
+        "C": "Good effort! You passed.",
+        "D": "You passed, but there's room for improvement.",
+        "F": "You need to study more for the next test."
+    }
+    return feedback[grade]
+
+def main():
+    """Main program"""
+    print("=" * 40)
+    print("       GRADE CALCULATOR")
+    print("=" * 40)
     
-    # Print the result with a message
+    # Get valid score from user
+    score = get_valid_score()
+    
+    # Determine letter grade
+    grade = get_letter_grade(score)
+    
+    # Get feedback
+    feedback = get_feedback(grade)
+    
+    # Print results
+    print("\n" + "=" * 40)
     print(f"Your score: {score}")
     print(f"Your grade: {grade}")
-    
-    # Additional feedback based on grade
-    if grade == "A":
-        print("Excellent work! Keep it up!")
-    elif grade == "B":
-        print("Great job! You're doing well.")
-    elif grade == "C":
-        print("Good effort! You passed.")
-    elif grade == "D":
-        print("You passed, but there's room for improvement.")
-    else:
-        print("You need to study more for the next test.")
+    print(f"Message: {feedback}")
+    print("=" * 40 + "\n")
+
+if __name__ == "__main__":
+    main()
